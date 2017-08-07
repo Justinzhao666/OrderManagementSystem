@@ -1,0 +1,77 @@
+{%extends 'front/base_index.html'%}
+{%block title%}商品详细信息{%endblock title%}
+{%block body%}
+<div class="navbar_con">
+    <div class="navbar clearfix">
+        <div class="subnav_con fl">
+            <h1>全部商品分类</h1>
+            <span></span>
+            <ul class="subnav">
+                {%for cate in cates%}
+                <li><a href="/list/{{cate.id}}/" class="">{{cate.category}}</a></li>
+                {%endfor%}
+                <li><a href="/list/0/" class="other">其他</a></li>
+            </ul>
+        </div>
+        <ul class="navlist fl">
+            <li><a href="/index/">首页</a></li>
+            <li class="interval">|</li>
+            <li><a href="/list/">全部商品</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="breadcrumb">
+    <a href="/list/">全部分类</a>
+    <span>></span>
+    <a href="/list/{{good.cate_id_id}}">{{good.cate_id}}</a>
+    <span>></span>
+    <a href="#">商品详情</a>
+</div>
+
+<div class="goods_detail_con clearfix">
+    <div class="goods_detail_pic fl"><img class="imgsize" src="/media/{{good.good_pic}}"></div>
+    <div class="goods_detail_list fr">
+        <h3>{{good.good_name}}</h3>
+        <p>{{good.good_shortinfo}}</p>
+        <div class="prize_bar">
+            <span class="show_pirze">¥<em>{{good.price_sell}}</em></span>
+            <span class="show_unit">单  位：{{good.unit}}</span>
+            <span class="show_count">库 存：<em id="left">{{good.count}}</em></span>
+        </div>
+        <div class="goods_num clearfix">
+            <div class="num_name fl">数 量：</div>
+            <div class="num_add fl">
+                <input type="text" class="num_show fl" id="number" value="1">
+                <a href="javascript:;" class="add fr">+</a>
+                <a href="javascript:;" class="minus fr">-</a>
+            </div>
+        </div>
+        <div class="total">总价：<em></em></div>
+        <div class="operate_btn">
+            <a href="javascript:;" class="buy_btn">立即购买</a>
+            <a href="javascript:;" class="add_cart" id="add_cart" value="{{good.gid}}">加入购物车</a>
+        </div>
+    </div>
+</div>
+<div class="main_wrap clearfix">
+    <!--<div class="r_wrap fr clearfix">-->
+    <ul class="detail_tab clearfix">
+        <li class="active">商品介绍</li>
+        <li>评论</li>
+    </ul>
+    <div class="tab_content">
+        <dl>
+            <dt>商品详情：</dt>
+            <dd>
+                {{good.good_info|safe}}
+            </dd>
+        </dl>
+    </div>
+    <!--</div>-->
+</div>
+{%endblock body%}
+{%block foot%}
+<script type="text/javascript" src="/static/js/detail.js"></script>
+<script type="text/javascript" src="/static/js/cart.js"></script> <!--购物车特效-->
+{%endblock foot%}

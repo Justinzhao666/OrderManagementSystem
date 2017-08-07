@@ -1,0 +1,63 @@
+{%extends 'front/base_user.html'%}
+{%block title%}
+修改密码
+{%endblock title%}
+{%block subtitle%}
+修改密码
+{%endblock subtitle%}
+{%block head%}
+<link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/mytable.css" rel="stylesheet">
+{%endblock%}
+{%block body%}
+<div class="main_con clearfix">
+    <div class="left_menu_con clearfix">
+        <h3>用户中心</h3>
+        <ul>
+            <li><a href="/user_center_info/">· 个人信息</a></li>
+            <li><a href="/user_center_order/">· 全部订单</a></li>
+            <li><a href="/user_changepwd/" class="active">· 修改密码</a></li>
+        </ul>
+    </div>
+    <div class="right_content clearfix">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3 class="common_title2">修改密码</h3>
+                <div class="clearfix"></div>
+            </div>
+            <p><code>{{ errors }}</code></p>
+            <div class="x_content">
+                <form class="form-horizontal" action="/changepwd_handle/" method="post">
+                    {%csrf_token%}
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="pwd_old">原密码</label>
+                        <div class="col-sm-6">
+                            <input type="password" id="pwd_old" class="form-control" name="pwd_old">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="newpwd1">新密码</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="newpwd1" name="newpwd1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="newpwd2">确认密码</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="newpwd2" name="newpwd2">
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-5">
+                            <button id="send" href="" type="submit" class="btn btn-success">保 存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock body%}
+{%block foot%}
+{%endblock foot%}

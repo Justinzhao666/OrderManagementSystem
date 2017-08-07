@@ -1,0 +1,24 @@
+#msg {
+    position: fixed;
+    top: 300px;
+    right: 35px;
+    z-index: 10000;
+    width: 1px;
+    height: 52px;
+    line-height: 52px;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    background: #360;
+    display: none
+}
+
+.u-flyer {
+    border: 2px solid deepskyblue;
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    position: fixed;
+    z-index: 9999;
+}

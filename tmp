@@ -1,0 +1,50 @@
+对数据进行增删改查
+查
+models.UserInfo.objects.all()
+models.UserInfo.objects.all().values('user')    #只取user列
+models.UserInfo.objects.all().values_list('id','user')    #取出id和user列，并生成一个列表
+models.UserInfo.objects.get(id=1)
+models.UserInfo.objects.get(user='yangmv')
+
+
+增
+models.UserInfo.objects.create(user='yangmv',pwd='123456')
+或者
+obj = models.UserInfo(user='yangmv',pwd='123456')
+obj.save()
+或者
+dic = {'user':'yangmv','pwd':'123456'}
+models.UserInfo.objects.create(**dic)
+
+
+
+改
+
+models.UserInfo.objects.filter(user='yangmv').update(pwd='520')
+或者
+obj = models.UserInfo.objects.get(user='yangmv')
+obj.pwd = '520'
+obj.save()
+
+request.session['username'] = uname
+
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0002', '哈哈2', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '5');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0003', '哈哈3', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '5');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0004', '哈哈4', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '5');
+UPDATE `OrderManagementSystem`.`my_goods` SET `good_name`='哈哈1' WHERE `gid`='JC-0001';
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0011', '呵呵1', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '4');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0012', '呵呵2', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '4');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0013', '呵呵3', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '4');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0014', '呵呵4', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '4');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0015', '哈哈1', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '3');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0016', '哈哈2', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '3');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0017', '哈哈3', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '3');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0018', '哈哈4', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '3');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0019', '哈哈1', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '2');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0020', '哈哈2', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '2');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0021', '哈哈3', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '2');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0022', '哈哈4', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '2');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0023', '哈哈1', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '1');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0024', '哈哈2', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '1');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0025', '哈哈3', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '1');
+INSERT INTO `OrderManagementSystem`.`my_goods` (`gid`, `good_name`, `count`, `unit`, `price_sell`, `price_orgin`, `good_info`, `good_pic`, `isdelete`, `cate_id_id`, `good_activity_id`) VALUES ('JC-0026', '哈哈4', '100', '个', '100.00', '100.00', '<p>你好啊</p>', 'goods/TB2e5xVXmuJ.eBjy0FgXXXBBXXa_2854729607.jpg', '0', '1', '1');

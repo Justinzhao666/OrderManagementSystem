@@ -1,0 +1,25 @@
+.x_title {
+    border-bottom: 2px solid #E6E9ED;
+    padding: 1px 5px 6px;
+}
+
+.x_panel, .x_title {
+    margin-bottom: 10px;
+}
+
+/*.x_title h3 {*/
+    /*color: #73879C;*/
+    /*font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;*/
+/*}*/
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+.ln_solid {
+    border-top: 1px solid #e5e5e5;
+    color: #fff;
+    background-color: #fff;
+    height: 1px;
+    margin: 20px 0;
+}
