@@ -21,7 +21,7 @@ from OrderManagementSystem import settings
 from c_index import views
 
 urlpatterns = [
-    url(r'^$',views.index), # 直接进入首页
+    url(r'^$', views.index),  # 直接进入首页
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^', include('c_login.urls')),
@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^', include('c_order.urls')),
     url(r'^', include('b_home.urls')),
     url(r'^', include('b_login.urls')),
+    url(r'^search/', views.MySearchView.as_view()),
 ]
 
 # 让 Django 给通过开发服务器上传的媒体文件提供服务

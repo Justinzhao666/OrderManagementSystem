@@ -533,6 +533,9 @@ html, body {
 .r_wrap {
     width: 980px;
 }
+.r_wrap2 {
+    width: 100%;
+}
 
 /* 新品推荐样式 */
 

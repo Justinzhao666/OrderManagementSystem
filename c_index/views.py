@@ -162,3 +162,10 @@ def goodinfo(request, dict_user, id):
     dict1 = {'good': good,'cates':cates}
     dict_all = dict(dict1, **dict_user)
     return render(request, 'front/detail.html', dict_all)
+
+# 用于搜搜
+from haystack.generic_views import SearchView
+class MySearchView(SearchView):
+    def get_context_data(self, *args, **kwargs):
+        context = super(MySearchView, self).get_context_data(*args, **kwargs)
+        return context

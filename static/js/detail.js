@@ -52,28 +52,8 @@ $(function () {
 
     // 当数字变化触发事件，数字一遍 btn的href会自动拼接get请求，用于后面点击购买
     $('.num_show').change(function () {
-        $('.buy_btn').attr({href: $('.buy_btn').attr('href').split('?')[0] + '?id=' + $('.add_cart').attr('value') + '&&count=' + $('.num_show').val()})
+        $('.buy_btn').attr({href: $('.buy_btn').attr('href').split('?')[0] + '?id=' + $('.add_cart').attr('value') + '&count=' + $('.num_show').val()})
     })
 
-    //加入购物车
-    // $('#add_cart').click(function () {
-    //         $.ajax({
-    //             url: '/addcart/',
-    //             type: 'POST',
-    //             dataType: 'json',
-    //             data: {'goodsName': $('.add_cart').attr('value'), 'buyCount': $('.num_show').val()}
-    //         })
-    //             .done(function (data) {
-    //                     $('#show_count').html(data.number);
-    //
-    //                 }
-    //             )
-    //             .fail(function () {
-    //                 // error_name = 'True';
-    //                 window.location.href = '/login/'
-    //                 // alert('服务器超时，请重试！');
-    //             });
-    //     }
-    // )
-    // $(".num_show").trigger("change");
+
 })

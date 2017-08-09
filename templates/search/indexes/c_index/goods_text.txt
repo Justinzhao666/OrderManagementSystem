@@ -1,0 +1,5 @@
+{{object.gid}}
+{{object.good_name}}
+{{object.cate_id}}
+{{object.good_info}}
+{{object.good_shortinfo}}

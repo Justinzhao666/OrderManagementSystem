@@ -1,0 +1,131 @@
+{%extends 'front/base_index.html'%}
+{%block title%}商品列表{%endblock title%}
+{%block body%}
+<div class="navbar_con">
+    <div class="navbar clearfix">
+        <div class="subnav_con fl">
+            <h1><a href="/list/" style="color:#ffffff;">全部商品分类</a></h1>
+        </div>
+        <ul class="navlist fl">
+            <li><a href="/index/">首页</a></li>
+            <li class="interval">|</li>
+            <li><a href="/list/" class="title_blod" style="color: #EE7600;">全部商品</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="breadcrumb">
+    <a href="/list/">全部分类</a>
+    <span>></span>
+    <a href="#">搜索</a>
+</div>
+
+<div class="main_wrap clearfix">
+    <div class="clearfix">
+        <ul class="goods_type_list clearfix">
+            {% if query %}
+            {%for good in object_list%}
+            <li class="listimg">
+                <a href="/detail/{{good.object.gid}}/"><img src="/media/{{good.object.good_pic}}"></a>
+                <h4><a href="/detail/{{good.object.gid}}/">{{good.object.good_name}}</a></h4>
+                <div class="operate">
+                    <span class="prize">￥{{good.object.price_sell}}</span>
+                    <span class="unit">/{{good.object.unit}}</span>
+                    <a href="javascript:;" class="add_goods" title="加入购物车" value="{{good.object.gid}}"></a>
+                </div>
+            </li>
+            {%endfor%}
+            {%endif%}
+        </ul>
+        <div class="pagenation">
+
+            {%if page.has_previous%}
+            <a href="/search/?q={{query}}&amp;page={{page.previous_page_number}}/">
+                <上一页
+            </a>
+            {%endif%}
+            {%for pindex in paginator.page_range%}
+            {%if pindex == page.number%}
+            <a href="#" class="active">{{pindex}}</a>
+            {%else%}
+            <a href="/search/?q={{query}}&amp;page={{pindex}}">{{pindex}}</a>
+            {%endif%}
+            {%endfor%}
+
+            {%if page.has_next%}
+            <a href="/search/?q={{query}}&amp;page={{page.next_page_number}}/">下一页></a>
+            {%endif%}
+        </div>
+        <div style="text-align: center;color: #00b3ee">
+            <span>共 {{ paginator.page_range.count}} 页</span>
+        </div>
+    </div>
+</div>
+{%endblock body%}
+{%block foot%}
+<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.fly.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //上一页下一页特效
+        var ahref = $('.pagenation .active').attr('href');
+        var apage = ahref.split('page=')
+        var max = parseInt($('#toright').prev('a').html())
+        index = ahref.indexOf(apage[1]);
+        left = parseInt(apage[1]) - 1;
+        right = parseInt(apage[1]) + 1;
+        if (left <= 0) {
+            left = 1
+        }
+        ;
+        if (right >= max) {
+            right = max
+        }
+        ;
+        $('#toleft').attr({href: apage[0] + 'page=' + String(left)});
+        $('#toright').attr({href: apage[0] + 'page=' + String(right)});
+        // 购物车特效
+        var offset = $("#end").offset();
+        $(".add_goods").click(function (event) {
+            var e = event || window.event;
+            var addcar = $(this);
+            var img = addcar.parent().parent().find('img').attr('src');
+            var flyer = $('<img class="u-flyer" src="' + img + '">');
+            var gid = $(this).attr('value')
+            flyer.fly({
+                start: {
+                    left: e.clientX, //点击位置获取
+                    top: e.clientY,
+                },
+                end: {
+                    left: offset.left + 10,
+                    top: offset.top + 10,
+                    width: 0,
+                    height: 0
+                },
+                speed: 0.8,
+                onEnd: function () {
+                    this.destory();
+                    $.ajax({
+                        url: '/add_cart/',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {'good_id': gid, 'good_count': 1}
+                    }).done(function (data) {
+                            //获取后台的json数据
+                            if (data.login == 'no') {
+                                alert()
+                                window.location.href = '/login/' //没有登录就重定向
+                            } else {
+                                $('#show_count').html(data.number)
+                            }
+                        }
+                    ).fail(function () {
+                        alert('服务器超时，请重试！');
+                    });
+                }
+            });
+        });
+    })
+</script>
+{%endblock foot%}
