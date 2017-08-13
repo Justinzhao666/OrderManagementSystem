@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/style.css"/>
+    <script type="text/javascript" src="/static/back/Js/jquery.js"></script>
+    <script type="text/javascript" src="/static/back/Js/jquery.sorted.js"></script>
+    <script type="text/javascript" src="/static/back/Js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/back/Js/ckform.js"></script>
+    <script type="text/javascript" src="/static/back/Js/common.js"></script>
+
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+        td, th {
+            padding: 2px 5px;
+        }
+    </style>
+</head>
+<body>
+<div style="width: 900px;margin: 0 auto;padding: 10px;font-size: 15px;">
+    <table style="width: 100%;margin-top: 40px;">
+        <tr>
+            <td colspan="4" align="center"><h3>销售单</h3></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold;width: 10%">订单编号：</td>
+            <td style="width: 40%">{{order.oid}}</td>
+            <td style="font-weight: bold;width: 10%">下单日期：</td>
+            <td style="width: 40%">{{order.time_begin}}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">下单账户：</td>
+            <td>{{order.uid}} / {{order.uid.user_firstname}}{{order.uid.user_secondname}}</td>
+            <td style="font-weight: bold">联系方式：</td>
+            <td>{{order.uid.user_phone}} / {{order.uid.user_telecom}}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">付款方式：</td>
+            <td colspan="3">{{order.pay}}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">收货地址：</td>
+            <td colspan="3">{{order.address}}</td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">订单备注：</td>
+            <td colspan="3">{{order.notes}}xxxxx</td>
+        </tr>
+    </table>
+    <br>
+    <p style="font-weight: bold;padding-left: 2px"> 商品详情</p>
+    <table class="" style="width: 100%;text-align: left;" border="1px">
+        <tr>
+            <th>序号</th>
+            <th>商品编号</th>
+            <th>商品名称</th>
+            <th>单位</th>
+            <th>数量</th>
+            <th>单价</th>
+            <th>合计</th>
+        </tr>
+        {%for good in goods%}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{good.gid.gid}}</td>
+            <td>{{good.gid.good_name}}</td>
+            <td>{{good.gid.unit}}</td>
+            <td class="count">{{good.count}}</td>
+            <td class="price">{{good.gid.price_sell}}</td>
+            <td class="sum"></td>
+        </tr>
+        {%endfor%}
+        <tr>
+            <td width="10%">订单总价：</td>
+            <td colspan="2">{{order.ototal}}</td>
+            <td>实收金额</td>
+            <td colspan="3"></td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
+<script>
+    $(function () {
+        $('#backid').click(function () {
+//            window.location.href = "javascript:history.back();";
+            // 检验订单合计是否正确, 总价是数据库里面存储的，但是防止用户恶意操作需要后台再次验证下，商品的价格*数量（这些东西他们改不了）之和
+            var total = 0
+            jQuery('.sum').each(function () {
+                total += parseFloat($(this).text())
+            })
+            if (total == parseFloat($('#otatal').text())) {
+                alert(' ***  订单正常，总价：' + total + '  ***')
+            } else {
+                alert('订单的数据有异常，请核对！')
+            }
+
+        });
+        $('.sum').change(function () {
+            var sum = parseFloat($(this).prev().prev().text()) * parseInt($(this).prev().text())
+            $(this).text(sum)
+        })
+        $('.sum').change()
+    });
+</script>

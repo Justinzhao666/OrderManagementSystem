@@ -35,7 +35,7 @@
                 {%for rem in recom%}
                 <li>
                     <a href="/detail/{{rem.gid}}/"><img src="/media/{{rem.good_pic}}"></a>
-                    <h4><a href="/detail/{{rem.gid}}/">{{rem.good_name}}</a></h4>
+                    <h4><a href="/detail/{{rem.gid}}/">{{rem.good_name}} ({{rem.gid}})</a></h4>
                     <div class="prize">￥{{rem.price_sell}}</div>
                 </li>
                 {%endfor%}
@@ -54,7 +54,7 @@
             {%for good in goods%}
             <li class="listimg">
                 <a href="/detail/{{good.gid}}/"><img src="/media/{{good.good_pic}}"></a>
-                <h4><a href="/detail/{{good.gid}}/">{{good.good_name}}</a></h4>
+                <h4><a href="/detail/{{good.gid}}/">{{good.good_name}} ({{good.gid}})</a></h4>
                 <div class="operate">
                     <span class="prize">￥{{good.price_sell}}</span>
                     <span class="unit">/{{good.unit}}</span>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/style.css"/>
+    <script type="text/javascript" src="/static/back/Js/jquery.js"></script>
+    <script type="text/javascript" src="/static/back/Js/jquery.sorted.js"></script>
+    <script type="text/javascript" src="/static/back/Js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/back/Js/ckform.js"></script>
+    <script type="text/javascript" src="/static/back/Js/common.js"></script>
+    <script type="text/javascript" src='/static/tiny_mce/tiny_mce.js'></script>
+    <script src="/static/back/Js/fileinput.min.js"></script>
+    <script src="/static/back/Js/zh.js"></script>
+    <link rel="stylesheet" href="/static/back/Css/fileinput.min.css">
+    <script type="text/javascript">
+        tinyMCE.init({
+            'mode': 'textareas',
+            'theme': 'advanced',
+            'width': 900,
+            'height': 400
+        });
+    </script>
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+        input {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<form action="/admin_good_save/" method="post" class="definewidth m20" enctype="multipart/form-data">
+    {%csrf_token%}
+    <input type="hidden" name="id" value="{$user.id}"/>
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td colspan="2">
+                <div id="backinfo" hidden class="alert alert-success"></div>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">商品编号</td>
+            <td>
+                <input id="gid" name="gid"/>
+            </td>
+            <script>
+                $('#gid').blur(function () {
+                    if ($('#gid').val() == '') {
+                        $('#backinfo').html('商品编号必填！不可以为空！').removeAttr('hidden').attr('class','alert alert-danger')
+                        return
+                    }
+                    $.get("/gid_check/?gid=" + $('#gid').val(), function (response, status, xhr) {
+                        if (response == '0') {
+                            $('#backinfo').html("该编号不可用：编号已存在！").removeAttr('hidden').attr('class','alert alert-danger')
+                        } else if (response == '1') {
+                            $('#backinfo').html("该编号可以使用！").removeAttr('hidden').attr('class','alert alert-success')
+                        }
+                    })
+                })
+            </script>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">商品名称</td>
+            <td><input name="name" class="" type="text"/>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">所属类别</td>
+            <td>
+                <select name="cate">
+                    {%for cate in cates%}
+                    {% if good.cate_id == cate %}
+                    <option selected="selected" value="{{cate.id}}">{{cate}}</option>
+                    {%else%}
+                    <option value="{{cate.id}}">{{cate}}</option>
+                    {%endif%}
+                    {%endfor%}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">库存</td>
+            <td><input name="count" class="" type="text" value="{{good.count}}"/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">单位</td>
+            <td><input name="unit" type="text" value="{{good.unit}}"/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">定价</td>
+            <td><input name="price1" type="text" value="{{good.price_sell}}"/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">成本价</td>
+            <td><input name="price2" type="text" value="{{good.price_orgin}}"/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">简要描述</td>
+            <td><input name="shortinfo" type="text" value="{{good.good_shortinfo}}"/></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">详细信息</td>
+            <td><textarea name="info">{{good.good_info}}</textarea></td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">商品海报</td>
+            <td>
+                <input type="file" id="input-1" class="file" name="photo"/>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">销量</td>
+            <td>{{good.count_sell}}</td>
+        </tr>
+        <tr>
+            <td width="10%" class="tableleft">是否删除</td>
+            <td>
+                {%if good.isdelete%}
+                <input name="delete" type="checkbox" value="True" checked="checked"/> 删除
+                {%else%}
+                <input name="delete" type="checkbox" value="True"/> 删除
+                {%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center">
+                <button type="submit" class="btn btn-primary" type="button">保存</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

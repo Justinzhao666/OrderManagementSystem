@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/style.css"/>
+    <script type="text/javascript" src="/static/back/Js/jquery.js"></script>
+    <script type="text/javascript" src="/static/back/Js/jquery.sorted.js"></script>
+    <script type="text/javascript" src="/static/back/Js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/back/Js/ckform.js"></script>
+    <script type="text/javascript" src="/static/back/Js/common.js"></script>
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    菜单名称：
+    <input type="text" name="menuname" id="menuname" class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
+    <button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-success" id="addnew">新增商品</button>
+    <div style="float: right;font-size: medium;font-weight: bold;margin-top: 10px;margin-right: 10px">
+        共计 <em style="color: red">{{count}}</em> 条
+    </div>
+</form>
+<table class="table table-bordered table-hover definewidth m10">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>商品编号</th>
+        <th>商品名称</th>
+        <th>分类</th>
+        <th>原价</th>
+        <th>定价</th>
+        <th>库存</th>
+        <th>详情</th>
+    </tr>
+    </thead>
+    {%for good in goods%}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{good.gid}}</td>
+        <td>{{good.good_name}}</td>
+        <td>{{good.cate_id}}</td>
+        <td>{{good.price_orgin}}</td>
+        <td>{{good.price_sell}}</td>
+        <td>{{good.count}}</td>
+        <td><a href="/admin_good_info/?gid={{good.gid}}">查看/编辑商品</a></td>
+    </tr>
+    {%endfor%}
+</table>
+
+</body>
+</html>
+<script>
+    $(function () {
+        $('#addnew').click(function () {
+            window.location.href = "/admin_good_add/";
+        });
+
+
+    });
+
+</script>

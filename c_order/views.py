@@ -29,7 +29,7 @@ def place_order(request, dict_user):
         # print('-----goodID:' + str(type(goodId)))
         # 判断是否大于库存：
         if agood.count < int(count):
-            return HttpResponse('你所要购买的商品 - '+agood.good_name+' - 库存不足！')
+            return HttpResponse('你所要购买的商品 - ' + agood.good_name + ' - 库存不足！')
         goodId = [agood]  # 列表中只有一个商品
         count = [count]
     # 从购物车中提交的
@@ -46,7 +46,7 @@ def place_order(request, dict_user):
                 cart.counts = int(count[j])
                 cart.save()
             j += 1
-        # print('goodID:' + str(goodId))  # 里面存放的是good对象
+            # print('goodID:' + str(goodId))  # 里面存放的是good对象
     else:
         pass
     # 上面造出了 goodID 的list  和 count 的list
@@ -109,6 +109,7 @@ def order_handle(request):
         order.save()
         # 插入订单详情
         total = 0  # 订单总额
+        orgintotal = 0  # 订单的成本价
         if cartIdList[0]:  # 如果是从购物车中的订单,就不要从前端去读，而是从购物车去读，因为在前一个页面购物车就已经被更新为用户所修改的了
             for i in cartIdList:
                 oinfo = OrderInfo()
@@ -116,7 +117,7 @@ def order_handle(request):
                 goods = cart.gid  # 这里直接就是good对象
                 # 判断库存：
                 if cart.counts <= goods.count:  # 可以购买
-                    goods.count = goods.count - cart.counts # 修改库存
+                    goods.count = goods.count - cart.counts  # 修改库存
                     goods.save()  # 修改库存
                     oinfo.oid = order
                     oinfo.gid = goods
@@ -124,20 +125,22 @@ def order_handle(request):
                     oinfo.count = cart.counts
                     oinfo.save()
                     total = total + oinfo.price * oinfo.count
+                    orgintotal = orgintotal + oinfo.gid.price_orgin * oinfo.count
                     cart.delete()  # 删除购物车中的商品
                 else:
                     # 失败回滚并返回到购物车
                     transaction.savepoint_rollback(tran_id)
-                    return HttpResponse('你所购买产品 - '+goods.good_name+' - 库存不足！')
+                    return HttpResponse('你所购买产品 - ' + goods.good_name + ' - 库存不足！')
             order.ototal = total
+            order.orgintotal = orgintotal - total
             order.save()
             transaction.savepoint_commit(tran_id)
-        else:  # 点击立即购买的，只有一件商品 这里的数量name牵扯到其他模块
+        else:  # 点击立即购买的，只有一种商品 这里的数量name牵扯到其他模块
             # for agood in goodsId: # 应该使用一个tuple来包装 good - count
             goods = Goods.objects.get(gid=goodsId[0])
             if int(goodscount[0]) <= goods.count:  # 可以购买
                 goods.count = goods.count - int(goodscount[0])
-                goods.save()# 修改库存
+                goods.save()  # 修改库存
                 oinfo = OrderInfo()
                 oinfo.gid = goods
                 oinfo.price = goods.price_sell
@@ -145,11 +148,13 @@ def order_handle(request):
                 oinfo.count = int(goodscount[0])
                 oinfo.save()
                 total = total + oinfo.price * oinfo.count
+                orgintotal = orgintotal + oinfo.gid.price_orgin * oinfo.count
             else:
                 # 失败回滚并返回到购物车
                 transaction.savepoint_rollback(tran_id)
                 return HttpResponse('你所购买产品库存不足！')
             order.ototal = total
+            order.orgintotal = orgintotal - total
             order.save()
             transaction.savepoint_commit(tran_id)
     except Exception as e:
@@ -163,7 +168,7 @@ def order_handle(request):
 @user_decorator.check_session
 def user_center_order(request, dict_user):
     # 先处理为取消订单不显示，后续在具体人性化处理
-    order_list = Orders.objects.filter(uid=request.session['username'],).filter(isdelete=False).order_by('-oid')
+    order_list = Orders.objects.filter(uid=request.session['username'], ).filter(isdelete=False).order_by('-oid')
     pIndex = request.GET.get('page', None)  # 获取页面index
     if pIndex == '' or pIndex == None:
         pIndex = '1'
@@ -193,6 +198,7 @@ def user_center_order(request, dict_user):
     })
     return render(request, 'front/user_center_order.html', dic)
 
+
 # 用户取消订单 ***************
 @transaction.atomic()
 @user_decorator.login_check
@@ -207,8 +213,11 @@ def delete_order(request, dict_user):
             return HttpResponse('非法操作！')
         order = Orders.objects.get(oid=orderid)
         if order:
+            if order.state != "待发货":  # 防止恶意攻击
+                return HttpResponse('非法操作！')
             # 删除表中order记录
             order.isdelete = True
+            order.state = 'deleted'
             order.save()
             print('删除成功')
             # 恢复库存
@@ -223,12 +232,6 @@ def delete_order(request, dict_user):
             transaction.savepoint_rollback(tran_id)
             return HttpResponse('非法操作！')
     except Exception as e:
-        print('订单取消失败'+str(e))
+        print('订单取消失败' + str(e))
         transaction.savepoint_rollback(tran_id)
         return HttpResponse('订单取消失败！')
-
-
-
-
-
-

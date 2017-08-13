@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/style.css"/>
+    <script type="text/javascript" src="/static/back/Js/jquery.js"></script>
+    <script type="text/javascript" src="/static/back/Js/jquery.sorted.js"></script>
+    <script type="text/javascript" src="/static/back/Js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/back/Js/ckform.js"></script>
+    <script type="text/javascript" src="/static/back/Js/common.js"></script>
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        .btnsmall {
+            padding: 2px 6px;
+            display: inline;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    订单编号：
+    <input type="text" name="menuname" id="menuname" class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
+    <button type="submit" class="btn btn-primary">查询</button>
+    <div style="float: right;font-size: medium;font-weight: bold;margin-top: 10px;margin-right: 10px">
+        共计 <em style="color: red">{{count}}</em> 条
+    </div>
+</form>
+<table class="table table-bordered table-hover definewidth m10">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>订单编号</th>
+        <th>用户</th>
+        <th>真名</th>
+        <th>手机</th>
+        <th>下单日期</th>
+        <th>订单总额</th>
+        <th>订单利润</th>
+        <th>订单状态</th>
+        <th>管理操作</th>
+        <th>查看详情</th>
+        <th>订单报表</th>
+    </tr>
+    </thead>
+    {%for order in orders%}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{order.oid}}</td>
+        <td>{{order.uid}}</td>
+        <td>{{order.uid.user_firstname}}{{order.uid.user_secondname}}</td>
+        <td>{{order.uid.user_phone}}</td>
+        <td>{{order.time_begin}}</td>
+        <td>{{order.ototal}}</td>
+        <td>{{order.orgintotal}}</td>
+        <td>{{order.state}}</td>
+        <td>
+            {% if order.isdelete %}
+            被删除订单，不可以操作
+            {% else %}
+            {% if order.state == "待发货" %}
+            <a class="btn btnsmall btn-primary"
+               href="/admin_change_order_state/?oid={{order.oid}}&state=发货中&page=0">发货</a>
+            {%elif order.state == "发货中"%}
+            <a class="btn btnsmall btn-primary" href="/admin_change_order_state/?oid={{order.oid}}&state=收货未付款&page=1">送达未收款</a>
+            <a class="btn btnsmall btn-success" href="/admin_change_order_state/?oid={{order.oid}}&state=完成&page=1">送达已收款</a>
+            <a class="btn btnsmall btn-danger" href="/admin_change_order_state/?oid={{order.oid}}&state=待发货&page=1"
+               title="发货点击错误，订单发货转为未发货状态">撤回</a>
+            {%elif order.state == "收货未付款"%}
+            <a class="btn btnsmall btn-success"
+               href="/admin_change_order_state/?oid={{order.oid}}&state=完成&page=2">已收款</a>
+            <a class="btn btnsmall btn-danger" href="/admin_change_order_state/?oid={{order.oid}}&state=发货中&page=2"
+               title="订单转为发货中状态">撤回</a>
+            {%elif order.state == "完成"%}
+            <a class="btn btnsmall btn-danger" href="/admin_change_order_state/?oid={{order.oid}}&state=收货未付款&page=3"
+               title="订单转为客户已经收货但是没有付款状态">撤回至未收款</a>
+            <a class="btn btnsmall btn-danger" href="/admin_change_order_state/?oid={{order.oid}}&state=发货中&page=3"
+               title="订单转为客户没有收货状态">撤回至发货中</a>
+            {%else%}
+            无可用操作
+            {%endif%}
+            {%endif%}
+        </td>
+        <td><a href="#" onclick="openWin('{{order.oid}}')">查看详情</a></td>
+        <td><a href="/admin_reportorder/?oid={{order.oid}}" target="_blank">生成报表</a></td>
+    </tr>
+    {%endfor%}
+</table>
+<script>
+    function openWin(tmp) {
+        var url = "/admin_showorder/?oid=" + tmp;                             //转向网页的地址;
+        var name = '';                            //网页名称，可为空;
+        var iWidth = 900;                          //弹出窗口的宽度;
+        var iHeight = 650;                         //弹出窗口的高度;
+        //获得窗口的垂直位置
+        var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+        //获得窗口的水平位置
+        var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+        window.open(url, name, 'height=' + iHeight + ',,innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0,titlebar=no');
+        // window.open("AddScfj.aspx", "newWindows", 'height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+    }
+</script>
+</body>
+</html>

@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
+# def admin_check()
+
 def blogin(request):
-    # return render(request,)
-    return HttpResponse('这是管理员登录的页面')
+    return render(request,'back/blogin.html');

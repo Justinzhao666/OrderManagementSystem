@@ -2,5 +2,5 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^blogin/$',views.blogin),
+    url(r'^OMS_admin/blogin/$',views.blogin),
 ]

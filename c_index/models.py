@@ -117,11 +117,12 @@ class Orders(models.Model):
     state = models.CharField(max_length=20)             # 状态：待付款 待发货 待确认收货 完成
     time_begin = models.DateTimeField(null=True)                 # 下单日期
     time_end = models.DateTimeField(null=True)                   # 完成日期
-    notes = models.TextField(null=True)                          # 订单备注信息
+    notes = models.TextField(null=True)                          # 订单备注信息*
     score = models.IntegerField(null=True)                       # 管理员对该订单印象
     pay = models.CharField(max_length=10,null=True)               # 付款方式
     isdelete = models.BooleanField(default=False)       # 是否删除,逻辑删除
     isdebt = models.BooleanField(default=False)         # 是否欠款：如果欠款需特殊标记来强调
+    orgintotal = models.DecimalField(max_digits=10, decimal_places=2,null=True) # 订单利润
     ototal = models.DecimalField(max_digits=10, decimal_places=2,null=True) # 订单总金额
     address = models.CharField(max_length=100,blank=True,null=True,default='')  # 订单地址
     class Meta():
@@ -172,4 +173,3 @@ class Purchases(models.Model):
         db_table = 'my_purchase'
     def __str__(self):
         return str(self.goodsName)
-

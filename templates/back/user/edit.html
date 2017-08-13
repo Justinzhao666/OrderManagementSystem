@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/back/Css/style.css"/>
+    <script type="text/javascript" src="/static/back/Js/jquery.js"></script>
+    <script type="text/javascript" src="/static/back/Js/jquery.sorted.js"></script>
+    <script type="text/javascript" src="/static/back/Js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/back/Js/ckform.js"></script>
+    <script type="text/javascript" src="/static/back/Js/common.js"></script>
+
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+<form action="/admin_user_save/" method="post" class="definewidth m20">
+    {%csrf_token%}
+    <table class="table table-bordered table-hover definewidth m10">
+        <tr>
+            <td width="10%" class="tableleft">账户</td>
+            <td>
+                {{user.user_account}}
+                <input type="hidden" name="username" value="{{user.user_account}}">
+            </td>
+
+        </tr>
+        <tr>
+            <td class="tableleft">重置用户密码</td>
+            <td><input type="text" name="pwd"/> 危险操作！</td>
+        </tr>
+        <tr>
+            <td class="tableleft">姓</td>
+            <td><input type="text" name="realname1" value="{{user.user_firstname}}"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">名</td>
+            <td><input type="text" name="realname2" value="{{user.user_secondname}}"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">性别</td>
+            <td><input type="text" name="gender" value="{{user.user_gender}}"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">电话</td>
+            <td><input type="text" name="telecom" value="{{user.user_telecom}}"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">手机</td>
+            <td><input type="text" name="phone" value="{{user.user_phone}}"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">公司名称</td>
+            <td><input style="width: 100%" type="text" name="company" value="{{user.user_company}}"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">联系地址</td>
+            <td><input style="width: 100%" type="text" name="address" value="{{user.user_addr}}"/></td>
+        </tr>
+        <tr>
+            <td class="tableleft">上次登录时间</td>
+            <td>{{user.user_lastlogin}}</td>
+        </tr>
+        <tr>
+            <td class="tableleft">是否删除</td>
+            {%if user.isdelete%}
+            <td><input type="checkbox" name="delete" value="True" checked/> 删除用户</td>
+            {%else%}
+            <td><input type="checkbox" name="delete" value="True"/> 删除用户</td>
+            {%endif%}
+        </tr>
+        <tr>
+            <td class="tableleft"></td>
+            <td>
+                <button type="submit" class="btn btn-primary" type="button">保存</button> &nbsp;&nbsp;<button
+                    type="button" class="btn btn-success" name="backid" id="backid">返回列表
+            </button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
+<script>
+    $(function () {
+        $('#backid').click(function () {
+            window.location.href = "/admin_user_all/";
+        });
+
+    });
+</script>
