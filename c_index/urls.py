@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls import url
+
+from c_index.views import *
 from . import views
 
 urlpatterns = [
@@ -11,5 +14,5 @@ urlpatterns = [
     url(r'^changepwd_handle/',views.changepwd_handle),
     url(r'^logout/$',views.logout),
     url(r'^detail/(?P<id>[0-9a-zA-Z\-]+)/$',views.goodinfo),
-
+    url(r'^search/', MySearchView()),
 ]

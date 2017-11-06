@@ -6,6 +6,7 @@
 提交订单
 {%endblock subtitle%}
 {%block body%}
+
 <div class="main_con clearfix">
     <div class="left_menu_con clearfix">
         <h3>用户中心</h3>
@@ -21,10 +22,15 @@
         <h3 class="common_title2">全部订单</h3>
         {%for orde in orderlist%}
         <ul class="order_list_th w978 clearfix">
-            <li class="col01">{{orde.order.time_begin}} </li>
+            <li class="col01">{{orde.order.time_begin}}</li>
             <li class="col04">订单号：{{orde.order.oid}}</li>
             <li class="col01 stress">{{orde.order.state}}</li>
-            <li style="float: right;margin-right: 20px">收货地址</li>
+            <li style="float: right;margin-right: 20px">
+                <a onclick="alert('{{orde.order.address}}')" href="#">
+                    收货地址
+                </a>
+            </li>
+
         </ul>
         <table class="order_list_table w980">
             <tbody>
@@ -32,8 +38,10 @@
                 <td width="55%">
                     {% for i in orde.orderdetail %}
                     <ul class="order_goods_list clearfix">
-                        <li class="col01"><img src="/media/{{i.goodrecord.gid.good_pic}}"></li>
-                        <li class="col02">{{i.goodrecord.gid.good_name}}<em>{{i.goodrecord.gid.price_sell}}元/{{i.goodrecord.gid.unit}}</em></li>
+                        <li class="col01"><a href="/detail/{{i.goodrecord.gid.gid}}/"><img
+                                src="/media/{{i.goodrecord.gid.good_pic}}"></a></li>
+                        <li class="col02">{{i.goodrecord.gid.good_name}}<em>{{i.goodrecord.gid.price_sell}}元/{{i.goodrecord.gid.unit}}</em>
+                        </li>
                         <li class="col03">{{i.goodrecord.count}}</li>
                         <li class="col04"> {{i.goodrecord.gid.price_sell}}元</li>
                     </ul>
@@ -53,7 +61,7 @@
                 </td>
                 <td width="15%">
                     {%if orde.order.state == '待发货'%}
-                    <a href="/delete_order/?order={{orde.order.oid}}" >取消订单</a>
+                    <a href="/delete_order/?order={{orde.order.oid}}">取消订单</a>
                     {%else%}
                     如需取消订单<br>请与卖家协商
                     {%endif%}

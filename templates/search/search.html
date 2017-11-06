@@ -1,6 +1,35 @@
-{%extends 'front/base_index.html'%}
-{%block title%}商品列表{%endblock title%}
-{%block body%}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>{%block title%}搜索{%endblock title%}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/cart.css">
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/js/slide.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.fly.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+</head>
+<body>
+<div class="header_con">
+    <div class="header">
+        <div class="welcome fl">欢迎使用佳驰购物系统!</div>
+    </div>
+</div>
+<div class="search_bar clearfix">
+    <a href="/index/" class="logo fl"><img src="/static/images/logo.png"></a>
+    <div class="search_con fl">
+        <form method='get' action="/search/">
+            <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+            <input type="submit" class="input_btn fr" name="" value="搜索">
+        </form>
+    </div>
+
+    <!--<div id="msg">已成功加入购物车！</div>-->
+</div>
 <div class="navbar_con">
     <div class="navbar clearfix">
         <div class="subnav_con fl">
@@ -24,10 +53,10 @@
     <div class="clearfix">
         <ul class="goods_type_list clearfix">
             {% if query %}
-            {%for good in object_list%}
+            {%for good in page.object_list%}
             <li class="listimg">
                 <a href="/detail/{{good.object.gid}}/"><img src="/media/{{good.object.good_pic}}"></a>
-                <h4><a href="/detail/{{good.object.gid}}/">{{good.object.good_name}}</a></h4>
+                <h4><a href="/detail/{{good.object.gid}}/">{{good.object.good_name}} （{{good.object.gid}}）</a></h4>
                 <div class="operate">
                     <span class="prize">￥{{good.object.price_sell}}</span>
                     <span class="unit">/{{good.object.unit}}</span>
@@ -38,7 +67,6 @@
             {%endif%}
         </ul>
         <div class="pagenation">
-
             {%if page.has_previous%}
             <a href="/search/?q={{query}}&amp;page={{page.previous_page_number}}/">
                 <上一页
@@ -57,12 +85,10 @@
             {%endif%}
         </div>
         <div style="text-align: center;color: #00b3ee">
-            <span>共 {{ paginator.page_range.count}} 页</span>
+            <span>共 {{ paginator.num_pages}} 页</span>
         </div>
     </div>
 </div>
-{%endblock body%}
-{%block foot%}
 <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery.fly.min.js"></script>
 <script type="text/javascript">
@@ -128,4 +154,33 @@
         });
     })
 </script>
-{%endblock foot%}
+<div class="footer">
+    <div class="foot_link">
+        <a href="#">关于我们</a>
+        <span>|</span>
+        <a href="#">联系我们</a>
+        <span>|</span>
+        <a href="#">招聘人才</a>
+        <span>|</span>
+        <a href="#">友情链接</a>
+    </div>
+    <p>CopyRight © 2016 xxxxxxx技术有限公司 All Rights Reserved</p>
+    <p>电话：xxxxxxxxxxx</p>
+</div>
+<script type="text/javascript">
+    $(function () {
+        if ($('.login_info em').html() != '') {
+            $('.login_info').show();
+            $('.login_btn').hide();
+            $('#login_btn_out').show();
+            $()
+        }
+        else {
+            $('.login_info').hide();
+            $('.login_btn').show();
+            $('#login_btn_out').hide();
+        }
+    })
+</script>
+</body>
+</html>

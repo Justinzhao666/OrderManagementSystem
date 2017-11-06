@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import hashlib
 
 from django.core.paginator import Paginator
@@ -164,8 +165,8 @@ def goodinfo(request, dict_user, id):
     return render(request, 'front/detail.html', dict_all)
 
 # 用于搜搜
-from haystack.generic_views import SearchView
+from haystack.views import SearchView
 class MySearchView(SearchView):
-    def get_context_data(self, *args, **kwargs):
-        context = super(MySearchView, self).get_context_data(*args, **kwargs)
+    def extra_context(self):
+        context = super(MySearchView, self).extra_context()
         return context

@@ -11,17 +11,21 @@
     <script type="text/javascript" src="/static/back/Js/bootstrap.js"></script>
     <script type="text/javascript" src="/static/back/Js/ckform.js"></script>
     <script type="text/javascript" src="/static/back/Js/common.js"></script>
-    <script type="text/javascript" src='/static/tiny_mce/tiny_mce.js'></script>
     <script src="/static/back/Js/fileinput.min.js"></script>
     <script src="/static/back/Js/zh.js"></script>
     <link rel="stylesheet" href="/static/back/Css/fileinput.min.css">
+    <script type="text/javascript" src='/static/tiny_mce/tiny_mce.js'></script>
+    <script src="/static/js/jquery.form.js"></script>
     <script type="text/javascript">
         tinyMCE.init({
-            'mode': 'textareas',
-            'theme': 'advanced',
-            'width': 900,
-            'height': 400,
-            'language': 'zh',
+            mode: 'textareas',
+            theme: 'advanced',
+            width: 900,
+            height: 400,
+            language: 'zh',
+//            plugins: 'imageupload',
+//            toolbar: 'imageupload',
+//            imageupload_url: '/my/uploader/path',
         });
     </script>
 
@@ -47,6 +51,7 @@
             width: 100%;
         }
     </style>
+
 </head>
 <body>
 <form action="/admin_good_save/" method="post" class="definewidth m20" enctype="multipart/form-data">

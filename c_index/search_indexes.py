@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 from haystack import indexes
 
 from c_index.models import Goods

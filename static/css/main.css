@@ -81,7 +81,7 @@ html, body {
 .search_con {
     width: 616px;
     height: 38px;
-    border: 1px solid #37ab40;
+    border: 1px solid #2aabd2;
     margin: 64px 0 0 124px;
     background: url(../images/icons.png) 10px -338px no-repeat;
 }
@@ -100,7 +100,7 @@ html, body {
 .search_con .input_btn {
     width: 100px;
     height: 38px;
-    background-color: #37ab40;
+    background-color: #2aabd2;
     border: 0px;
     font-size: 14px;
     color: #fff;
@@ -123,7 +123,7 @@ html, body {
     display: block;
     background: url(../images/icons.png) 13px -300px no-repeat;
     font-size: 14px;
-    color: #37ab40;
+    color: #2aabd2;
     text-indent: 56px;
 }
 
@@ -142,7 +142,7 @@ html, body {
 
 .navbar_con {
     height: 40px;
-    border-bottom: 2px solid #39a93e
+    border-bottom: 2px solid #2aabd2
 }
 
 .navbar {
@@ -157,7 +157,7 @@ html, body {
     text-align: center;
     font-size: 14px;
     color: #fff;
-    background-color: #39a93e;
+    background-color: #2aabd2;
 }
 
 .navbar .subnav_con {
@@ -365,14 +365,14 @@ html, body {
 
 .list_title {
     height: 40px;
-    border-bottom: 2px solid #42ad46
+    border-bottom: 2px solid #2aabd2
 }
 
 .list_title h3 {
     height: 40px;
     line-height: 40px;
     font-size: 16px;
-    color: #37ab40;
+    color: #2aabd2;
     font-weight: bold;
 }
 
@@ -473,7 +473,7 @@ html, body {
 
 /* 页面底部样式 */
 .footer {
-    border-top: 2px solid #42ad46;
+    border-top: 2px solid #2aabd2;
     margin: 30px 0;
 }
 
@@ -508,7 +508,7 @@ html, body {
 
 .breadcrumb a {
     line-height: 40px;
-    color: #37ab40
+    color: #2aabd2
 }
 
 .breadcrumb a:hover {
@@ -541,7 +541,7 @@ html, body {
 
 .new_goods {
     border: 1px solid #ededed;
-    border-top: 2px solid #37ab40;
+    border-top: 2px solid #2aabd2;
     padding-bottom: 10px;
 }
 
@@ -611,7 +611,7 @@ html, body {
 }
 
 .sort_bar .active {
-    background-color: #37ab40;
+    background-color: #2aabd2;
     color: #fff;
 }
 
@@ -853,7 +853,7 @@ html, body {
 
 .detail_tab {
     height: 35px;
-    border-bottom: 1px solid #37ab40
+    border-bottom: 1px solid #2aabd2
 }
 
 .detail_tab li {
@@ -870,11 +870,11 @@ html, body {
 }
 
 .detail_tab li.active {
-    border-top: 2px solid #37ab40;
+    border-top: 2px solid #2aabd2;
     position: relative;
     background-color: #fff;
-    border-left: 1px solid #37ab40;
-    border-right: 1px solid #37ab40;
+    border-left: 1px solid #2aabd2;
+    border-right: 1px solid #2aabd2;
     top: -1px;
     height: 35px;
 }
@@ -907,7 +907,7 @@ html, body {
 
 .login_form_bg {
     height: 480px;
-    background-color: #518e17
+    background-color: #2aabd2
 }
 
 .no-mp {
@@ -967,7 +967,7 @@ html, body {
     height: 20px;
     display: block;
     font-size: 16px;
-    color: #5fb42a;
+    color: #2aabd2;
     text-indent: 26px;
     background: url(../images/icons02.png) left 5px no-repeat;
     float: left;
@@ -1043,7 +1043,7 @@ html, body {
     position: absolute;
     left: 0;
     top: 180px;
-    background-color: #47aa34;
+    background-color: #2aabd2;
     color: #fff;
     font-size: 22px;
     border: 0px;
@@ -1451,7 +1451,7 @@ html, body {
     top: 30px;
     width: 100px;
     height: 30px;
-    background-color: #37ab40;
+    background-color: #2aabd2;
     text-align: center;
     line-height: 30px;
     color: #fff
@@ -1877,7 +1877,7 @@ html, body {
 .info_submit {
     width: 80px;
     height: 30px;
-    background-color: #37ab40;
+    background-color: #2aabd2;
     border: 0px;
     color: #fff;
     margin: 10px 0 10px 100px;

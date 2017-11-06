@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """OrderManagementSystem URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -31,7 +32,9 @@ urlpatterns = [
     url(r'^', include('c_order.urls')),
     url(r'^', include('b_home.urls')),
     url(r'^', include('b_login.urls')),
-    url(r'^search/', views.MySearchView.as_view()),
+    # url(r'^search/', include('haystack.urls')),
+    # url(r'^search/', views.MySearchView.as_view()),
+
 ]
 
 # 让 Django 给通过开发服务器上传的媒体文件提供服务

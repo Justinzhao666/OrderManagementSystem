@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import hashlib
 
 from django.db.models.functions import datetime
@@ -22,7 +23,7 @@ def login_handle(request):
         rember = post.get('check',0) # html中值为1，这里如果记住就是1，如果没选择记住就为0
         if uname and upwd:
             # 如果填入不为空
-            user = C_UserInfo.objects.filter(user_account=uname)  # 如果使用get取不到就或抛出异常
+            user = C_UserInfo.objects.filter(user_account=uname,isdelete=False)  # 如果使用get取不到就或抛出异常
             if len(user)==1:
                 # 登录成功
                 if hashlib.md5(upwd.encode(encoding='utf-8')).hexdigest() == user[0].user_pwd:
@@ -43,3 +44,5 @@ def login_handle(request):
                 return render(request, 'front/login.html', {'error': {'name': '用户名不存在，请重新输入'}})
         else:
             return render(request, 'front/login.html', {'error': {'name': '请输入用户名', 'password': '请输入密码'}})
+
+

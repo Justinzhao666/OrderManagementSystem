@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 from django.db import models
 from tinymce.models import HTMLField
 # Create your models here.
@@ -8,7 +8,7 @@ class C_UserInfo(models.Model):
     user_account = models.CharField(max_length=20,unique=True,db_index=True,primary_key=True,verbose_name='用户名')    # 账户
     user_pwd = models.CharField(max_length=50)                                                                         # 密码
     user_pic = models.ImageField(upload_to='head/',default='head/man.png')                       # 头像
-    user_gender = models.CharField(verbose_name='性别',choices=(('男','男'),('女','女')),max_length=1,null=True) #性别
+    user_gender = models.CharField(verbose_name='性别',choices=(('男','男'),('女','女')),max_length=1,null=True,default='') #性别
     user_firstname = models.CharField(max_length=20,default='',blank=True,verbose_name='姓')                            # 姓
     user_secondname = models.CharField(max_length=20,default='',blank=True,verbose_name='名')                           # 名
     user_telecom = models.CharField(max_length=11,blank=True,null=True,default='')      # 固话
@@ -92,7 +92,7 @@ class GoodCategory(models.Model):
 class Goods(models.Model):
     gid = models.CharField(max_length=20,primary_key=True,db_index=True)   # 商品编号(索引)
     good_name = models.CharField(max_length=20,db_index=True)                 # 商品名字（索引）
-    cate_id = models.ForeignKey('GoodCategory')                # 商品类别
+    cate_id = models.ForeignKey('GoodCategory',db_index=True)                # 商品类别
     count = models.PositiveIntegerField(default=0)                  # 商品库存
     unit = models.CharField(max_length=10)                      # 商品单位
     price_sell = models.DecimalField(max_digits=10,decimal_places=2)                # 商品售价
@@ -112,7 +112,7 @@ class Goods(models.Model):
 
 ## 订单表
 class Orders(models.Model):
-    oid = models.CharField(max_length=20,primary_key=True)            # 订单编号
+    oid = models.CharField(max_length=20,primary_key=True,db_index=True)            # 订单编号
     uid = models.ForeignKey('C_UserInfo')               # 用户id
     state = models.CharField(max_length=20)             # 状态：待付款 待发货 待确认收货 完成
     time_begin = models.DateTimeField(null=True)                 # 下单日期
@@ -134,7 +134,7 @@ class Orders(models.Model):
 
 # 订单详情表： 一个订单可能有多件商品,这里针对订单号每条商品的信息！
 class OrderInfo(models.Model):
-    oid = models.ForeignKey(Orders)
+    oid = models.ForeignKey(Orders,db_index=True)
     gid = models.ForeignKey(Goods)
     price=models.DecimalField(max_digits=10,decimal_places=2)
     count=models.IntegerField()
@@ -147,7 +147,7 @@ class OrderInfo(models.Model):
 
 # 购物车表
 class Cart(models.Model):
-    uid = models.ForeignKey('C_UserInfo')    # 用户id
+    uid = models.ForeignKey('C_UserInfo',db_index=True)    # 用户id
     gid = models.ForeignKey('Goods')                  # 商品id
     counts = models.IntegerField(default=1)             # 加入购物车数量
     class Meta():

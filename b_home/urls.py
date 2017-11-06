@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^homepage/$',views.homepage),
     # 用户
     url(r'^admin_user_all/$',views.admin_user_all),
     url(r'^admin_user_edit/$',views.admin_user_edit),
@@ -20,5 +20,7 @@ urlpatterns = [
     url(r'^admin_good_add/$',views.admin_good_add),
     url(r'^gid_check/$',views.gid_check),
     url(r'^user_check/$',views.user_check),
+    # 利润
+    url(r'^admin_profit/$', views.admin_profit),
 
 ]
