@@ -8,4 +8,4 @@
 - 后台页面： http://www.zhaohaoren.top/OMS_admin/blogin/
     - 账号：admin
     - 密码：zhao0515
-网页未备案，使用ip: 106.14.195.114
+- 网页未备案，使用ip: http://106.14.195.114
